@@ -1,0 +1,4 @@
+build
+thirdparty/**/build
+thirdparty/**/install
+install
