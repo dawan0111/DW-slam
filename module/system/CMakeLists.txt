@@ -25,6 +25,8 @@ message(STATUS "${LIBRARY_NAME}_TEST_PATH: ${${LIBRARY_NAME}_TEST_PATH}")
 message(STATUS "${LIBRARY_NAME}_RESOURCE_PATH: ${${LIBRARY_NAME}_RESOURCE_PATH}")
 message(STATUS "${LIBRARY_NAME}_THIRDPARTY_PATH: ${${LIBRARY_NAME}_THIRDPARTY_PATH}")
 
+include(${CMAKE_SOURCE_DIR}/cmake/find_opencv.cmake)
+
 set(${LIBRARY_NAME}_SOURCE_FILES
   src/system.cpp
 )
@@ -33,7 +35,12 @@ add_library(${LIBRARY_NAME} STATIC
 )
 target_include_directories(${LIBRARY_NAME} PUBLIC
   ${${LIBRARY_NAME}_INCLUDE_PATH}
+  ${OpenCV_INCLUDE_DIRS}
 )
+target_link_libraries(${LIBRARY_NAME} PRIVATE
+    ${OpenCV_LIBS}
+)
+
 target_compile_options(${LIBRARY_NAME} PRIVATE
   -Wall -Wextra -Wpedantic -Werror
 )

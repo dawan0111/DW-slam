@@ -18,6 +18,7 @@ set(${PACKAGE_NAME}_MODULE_PATH "${${PACKAGE_NAME}_PATH}/module")
 set(${PACKAGE_NAME}_THIRDPARTY_PATH "${${PACKAGE_NAME}_PATH}/thirdparty")
 
 add_subdirectory(${${PACKAGE_NAME}_MODULE_PATH})
+add_subdirectory(${${PACKAGE_NAME}_THIRDPARTY_PATH})
 
 add_executable(MAIN src/main.cpp)
 target_link_libraries(MAIN

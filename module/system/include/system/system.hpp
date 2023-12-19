@@ -1,6 +1,8 @@
 #ifndef SLAM__SLAM_SYSTEM_HPP_
 #define SLAM__SLAM_SYSTEM_HPP_
 
+#include "opencv2/opencv.hpp"
+
 namespace dw_slam::system {
 class System {
 public:
