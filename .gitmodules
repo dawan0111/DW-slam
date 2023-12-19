@@ -1,3 +1,8 @@
 [submodule "thirdparty/opencv/opencv"]
 	path = thirdparty/opencv/opencv
 	url = https://github.com/opencv/opencv.git
+	branch = 4.8.1
+[submodule "thirdparty/eigen3/eigen3"]
+	path = thirdparty/eigen3/eigen3
+	url = https://gitlab.com/libeigen/eigen.git
+	branch = 3.4
