@@ -21,6 +21,18 @@ add_subdirectory(${${PACKAGE_NAME}_MODULE_PATH})
 add_subdirectory(${${PACKAGE_NAME}_THIRDPARTY_PATH})
 
 add_executable(MAIN src/main.cpp)
-target_link_libraries(MAIN
+add_executable(KITTI src/kitti.cpp)
+
+target_link_libraries(MAIN PRIVATE
   SYSTEM
+)
+
+include(${CMAKE_SOURCE_DIR}/cmake/find_opencv.cmake)
+
+target_include_directories(KITTI PUBLIC
+  ${OpenCV_INCLUDE_DIRS}
+)
+target_link_libraries(KITTI PRIVATE
+  SYSTEM
+  ${OpenCV_LIBS}
 )
