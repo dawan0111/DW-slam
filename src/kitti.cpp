@@ -24,16 +24,19 @@ int32_t main() {
     return 0;
   }
 
-  auto system = dw_slam::system::System();
+  auto system = dw_slam::system::System(true);
   auto image_vector_size = left_image_vector.size();
+
   for (int i = 0; i < image_vector_size; i++) {
     std::string left_image_path = left_image_vector[i];
     std::string right_image_path = right_image_vector[i];
 
-    std::cout << "left_image_path: " << left_image_path << std::endl;
-    std::cout << "right_image_path: " << right_image_path << std::endl;
+    cv::Mat left_image = cv::imread(left_image_path, cv::IMREAD_GRAYSCALE);
+    cv::Mat right_image = cv::imread(right_image_path, cv::IMREAD_GRAYSCALE);
+
+    system.processNextFrame(std::move(left_image), std::move(right_image));
   }
-  system.processNextFrame();
+
   int16_t sequence_index = 0;
   return 0;
 }
