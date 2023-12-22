@@ -1,3 +1,4 @@
+#include "extractor/ORB_extractor.hpp"
 #include "opencv2/opencv.hpp"
 #include "system/system.hpp"
 #include <cstdint>
@@ -24,10 +25,13 @@ int32_t main() {
     return 0;
   }
 
-  auto system = dw_slam::system::System(true);
+  auto extractor = std::make_unique<dw_slam::extractor::ORBExtractor>();
+  auto system = dw_slam::system::System<dw_slam::extractor::ORBKeypoint>(
+      std::move(extractor), true);
+
   auto image_vector_size = left_image_vector.size();
 
-  for (int i = 0; i < image_vector_size; i++) {
+  for (int i = 0; i < image_vector_size; ++i) {
     std::string left_image_path = left_image_vector[i];
     std::string right_image_path = right_image_vector[i];
 
@@ -37,7 +41,6 @@ int32_t main() {
     system.processNextFrame(std::move(left_image), std::move(right_image));
   }
 
-  int16_t sequence_index = 0;
   return 0;
 }
 
@@ -70,7 +73,7 @@ void loadImage(std::string dataset_path,
   left_image_vector.reserve(nTimes);
   right_image_vector.reserve(nTimes);
 
-  for (int i = 0; i < nTimes; i++) {
+  for (int i = 0; i < nTimes; ++i) {
     std::stringstream ss;
     ss << std::setfill('0') << std::setw(6) << i;
     left_image_vector.push_back(strPrefixLeft + ss.str() + ".png");

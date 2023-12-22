@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
-set(LIBRARY_NAME SYSTEM)
+set(LIBRARY_NAME EXTRACTOR)
 set(LIBRARY_VERSION 0.0.1)
 
 project(${LIBRARY_NAME} VERSION ${LIBRARY_VERSION} LANGUAGES CXX)
@@ -28,9 +28,10 @@ message(STATUS "${LIBRARY_NAME}_THIRDPARTY_PATH: ${${LIBRARY_NAME}_THIRDPARTY_PA
 include(${CMAKE_SOURCE_DIR}/cmake/find_opencv.cmake)
 
 set(${LIBRARY_NAME}_SOURCE_FILES
-  src/system.cpp
+  src/extractor.cpp
+  src/ORB_extractor.cpp
 )
-add_library(${LIBRARY_NAME} STATIC
+add_library(${LIBRARY_NAME}
   ${${LIBRARY_NAME}_SOURCE_FILES}
 )
 target_include_directories(${LIBRARY_NAME} PUBLIC
@@ -39,7 +40,6 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
 )
 target_link_libraries(${LIBRARY_NAME} PRIVATE
     ${OpenCV_LIBS}
-    EXTRACTOR
 )
 
 target_compile_options(${LIBRARY_NAME} PRIVATE
