@@ -35,8 +35,8 @@ int32_t main() {
     std::string left_image_path = left_image_vector[i];
     std::string right_image_path = right_image_vector[i];
 
-    cv::Mat left_image = cv::imread(left_image_path, cv::IMREAD_GRAYSCALE);
-    cv::Mat right_image = cv::imread(right_image_path, cv::IMREAD_GRAYSCALE);
+    cv::Mat left_image = cv::imread(left_image_path, cv::IMREAD_COLOR);
+    cv::Mat right_image = cv::imread(right_image_path, cv::IMREAD_COLOR);
 
     system.processNextFrame(std::move(left_image), std::move(right_image));
   }
