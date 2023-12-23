@@ -32,5 +32,6 @@ target_include_directories(KITTI PUBLIC
 target_link_libraries(KITTI PRIVATE
   SYSTEM
   EXTRACTOR
+  MATCHER
   ${OpenCV_LIBS}
 )

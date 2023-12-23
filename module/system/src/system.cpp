@@ -2,8 +2,10 @@
 
 namespace dw_slam::system {
 template <typename Keypoint>
-System<Keypoint>::System(Extractor extractor, bool debug) : debug_(debug) {
+System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
+    : debug_(debug) {
   extractor_ = std::move(extractor);
+  matcher_ = std::move(matcher);
   std::cout << "SLAM SYSTEM Constructor" << std::endl;
 }
 

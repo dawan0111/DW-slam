@@ -1,4 +1,5 @@
 #include "extractor/ORB_extractor.hpp"
+#include "matcher/ORB_matcher.hpp"
 #include "opencv2/opencv.hpp"
 #include "system/system.hpp"
 #include <cstdint>
@@ -26,8 +27,9 @@ int32_t main() {
   }
 
   auto extractor = std::make_unique<dw_slam::extractor::ORBExtractor>();
+  auto matcher = std::make_unique<dw_slam::matcher::ORBMatcher>();
   auto system = dw_slam::system::System<dw_slam::extractor::ORBKeypoint>(
-      std::move(extractor), true);
+      std::move(extractor), std::move(matcher), true);
 
   auto image_vector_size = left_image_vector.size();
 
