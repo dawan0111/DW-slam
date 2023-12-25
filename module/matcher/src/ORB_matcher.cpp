@@ -21,7 +21,7 @@ void ORBMatcher::matchFeature_(
     int32_t best_distance = 10000000;
     uint16_t best_index = -1;
     for (uint16_t right_i = 0; right_i < right_keypoint_size; ++right_i) {
-      if (map.find(right_i) == map.end()) {
+      if (map.find(right_i) != map.end()) {
         continue;
       }
       auto left_descriptor = left_keypoint_vector[left_i].descriptor;
