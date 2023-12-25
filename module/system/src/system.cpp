@@ -30,9 +30,7 @@ void System<Keypoint>::processNextFrame(cv::Mat &&left_image,
 
       dw_slam::extractor::Point left_point = left_keypoint.getXY();
       dw_slam::extractor::Point right_point = right_keypoint.getXY();
-      (void)left_point;
-      (void)right_point;
-      (void)left_image_col;
+
       cv::circle(merge_image, cv::Point(left_point.x, left_point.y), 3,
                  cv::Scalar(0, 255, 0), -1);
       cv::circle(merge_image,
