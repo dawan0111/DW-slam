@@ -4,13 +4,14 @@
 #include <Eigen/Core>
 #include <iostream>
 #include <memory>
+
 namespace dw_slam::config {
 class Config {
 public:
-  using Camera = std::unique_ptr<dw_slam::type::Camera>;
-  Config(Camera left_camera, Camera right_camera);
-  Camera left_camera_;
-  Camera right_camera_;
+  using CameraPtr = std::unique_ptr<dw_slam::type::Camera>;
+  Config(CameraPtr left_camera, CameraPtr right_camera);
+  CameraPtr left_camera_;
+  CameraPtr right_camera_;
 };
 } // namespace dw_slam::config
 #endif // SLAM__CONFIG_HPP_

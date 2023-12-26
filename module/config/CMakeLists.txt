@@ -39,7 +39,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
 )
 target_link_libraries(${LIBRARY_NAME} PRIVATE
     ${EIGEN3_LIBS}
-    TYPE
+    TYPE_LIB
 )
 
 target_compile_options(${LIBRARY_NAME} PRIVATE

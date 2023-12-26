@@ -6,6 +6,37 @@ System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
     : debug_(debug) {
   extractor_ = std::move(extractor);
   matcher_ = std::move(matcher);
+  Eigen::Matrix3d left_intrinsic = Eigen::Matrix3d::Zero();
+  Eigen::Matrix<double, 3, 4> left_extrinsic =
+      Eigen::Matrix<double, 3, 4>::Zero();
+
+  left_intrinsic(0, 0) = 718.856;
+  left_intrinsic(1, 1) = 718.856;
+  left_intrinsic(0, 2) = 607.1928;
+  left_intrinsic(1, 2) = 185.2157;
+  left_intrinsic(2, 2) = 1.0;
+
+  left_extrinsic.block<3, 3>(0, 0) = Eigen::Matrix3d::Identity();
+
+  Eigen::Matrix3d right_intrinsic = Eigen::Matrix3d::Zero();
+  Eigen::Matrix<double, 3, 4> right_extrinsic =
+      Eigen::Matrix<double, 3, 4>::Zero();
+
+  right_intrinsic(0, 0) = 718.856;
+  right_intrinsic(1, 1) = 718.856;
+  right_intrinsic(0, 2) = 607.1928;
+  right_intrinsic(1, 2) = 185.2157;
+  right_intrinsic(2, 2) = 1.0;
+
+  right_extrinsic.block<3, 3>(0, 0) = Eigen::Matrix3d::Identity();
+
+  auto left_camera = std::make_unique<dw_slam::type::Camera>(
+      1241, 376, left_intrinsic, left_extrinsic);
+  auto right_camera = std::make_unique<dw_slam::type::Camera>(
+      1241, 376, right_intrinsic, right_extrinsic);
+
+  config_ = std::make_shared<dw_slam::config::Config>(std::move(left_camera),
+                                                      std::move(right_camera));
   std::cout << "SLAM SYSTEM Constructor" << std::endl;
 }
 
@@ -43,7 +74,6 @@ void System<Keypoint>::processNextFrame(cv::Mat &&left_image,
     cv::imshow("original_image", merge_image);
     cv::waitKey(1);
   }
-  std::cout << "Process Next Frame" << std::endl;
 }
 
 template class System<dw_slam::extractor::ORBKeypoint>;
