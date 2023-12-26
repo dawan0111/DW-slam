@@ -12,6 +12,9 @@ public:
   std::vector<std::pair<uint16_t, uint16_t>>
   matchFeature(std::vector<K> &left_keypoint_vector,
                std::vector<K> &right_keypoint_vector);
+  void triangulation(std::vector<std::pair<uint16_t, uint16_t>> &matched,
+                     std::vector<K> &left_keypoint_vector,
+                     std::vector<K> &right_keypoint_vector);
 
 private:
   bool debug_;

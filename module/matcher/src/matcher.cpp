@@ -15,5 +15,15 @@ Matcher<Keypoint>::matchFeature(std::vector<Keypoint> &left_keypoint_vector,
   return match_keypoint_vector;
 }
 
+template <typename Keypoint>
+void Matcher<Keypoint>::triangulation(
+    std::vector<std::pair<uint16_t, uint16_t>> &matched,
+    std::vector<Keypoint> &left_keypoint_vector,
+    std::vector<Keypoint> &right_keypoint_vector) {
+  (void)matched;
+  (void)left_keypoint_vector;
+  (void)right_keypoint_vector;
+}
+
 template class Matcher<dw_slam::extractor::ORBKeypoint>;
 } // namespace dw_slam::matcher
