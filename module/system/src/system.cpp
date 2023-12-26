@@ -37,6 +37,8 @@ System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
 
   config_ = std::make_shared<dw_slam::config::Config>(std::move(left_camera),
                                                       std::move(right_camera));
+
+  matcher_->registerConfig(config_);
   std::cout << "SLAM SYSTEM Constructor" << std::endl;
 }
 

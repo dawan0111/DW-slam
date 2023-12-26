@@ -37,7 +37,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
   ${${LIBRARY_NAME}_INCLUDE_PATH}
   ${EIGEN3_INCLUDE_DIRS}
 )
-target_link_libraries(${LIBRARY_NAME} PRIVATE
+target_link_libraries(${LIBRARY_NAME} PUBLIC
     ${EIGEN3_LIBS}
     TYPE_LIB
 )
