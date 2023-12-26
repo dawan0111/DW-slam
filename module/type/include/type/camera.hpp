@@ -9,6 +9,7 @@ public:
          Eigen::Matrix<double, 3, 4> &extrinsic);
   std::pair<double, double> pixel_to_cam(int16_t u, int16_t v);
   Eigen::Matrix<double, 3, 4> &getProjectionMatrix() { return projection_; };
+  Eigen::Matrix3d &getIntrinsicMatrix() { return intrinsic_; };
 
 private:
   int rows_;

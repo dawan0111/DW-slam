@@ -6,6 +6,10 @@ System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
     : debug_(debug) {
   extractor_ = std::move(extractor);
   matcher_ = std::move(matcher);
+
+  /**
+   * TODO: load yaml file
+   */
   Eigen::Matrix3d left_intrinsic = Eigen::Matrix3d::Zero();
   Eigen::Matrix<double, 3, 4> left_extrinsic =
       Eigen::Matrix<double, 3, 4>::Zero();
@@ -35,9 +39,11 @@ System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
   auto right_camera = std::make_unique<dw_slam::type::Camera>(
       1241, 376, right_intrinsic, right_extrinsic);
 
-  config_ = std::make_shared<dw_slam::config::Config>(std::move(left_camera),
-                                                      std::move(right_camera));
-
+  config_ = std::make_shared<dw_slam::config::Config>();
+  config_->left_camera_ = std::move(left_camera);
+  config_->right_camera_ = std::move(right_camera);
+  config_->baseline_ = 0.537;
+  config_->baseline_pixel_ = 386.1448;
   matcher_->registerConfig(config_);
   std::cout << "SLAM SYSTEM Constructor" << std::endl;
 }
@@ -52,6 +58,9 @@ void System<Keypoint>::processNextFrame(cv::Mat &&left_image,
       extractor_->extractFeature(right_image, 0.0);
   std::vector<std::pair<uint16_t, uint16_t>> matched_keypoint_vector =
       matcher_->matchFeature(left_keypoint_vector, right_keypoint_vector);
+
+  matcher_->get3DPositionInLeftCamera(
+      matched_keypoint_vector, left_keypoint_vector, right_keypoint_vector);
   if (debug_) {
     cv::Mat merge_image;
     auto left_image_col = left_image.cols;

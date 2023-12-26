@@ -2,6 +2,7 @@
 #define SLAM__MATCHER_HPP_
 #include "config/config.hpp"
 #include "extractor/extractor.hpp"
+#include <Eigen/SVD>
 #include <iostream>
 #include <opencv2/features2d.hpp>
 #include <opencv2/opencv.hpp>
@@ -14,9 +15,10 @@ public:
   std::vector<std::pair<uint16_t, uint16_t>>
   matchFeature(std::vector<K> &left_keypoint_vector,
                std::vector<K> &right_keypoint_vector);
-  void triangulation(std::vector<std::pair<uint16_t, uint16_t>> &matched,
-                     std::vector<K> &left_keypoint_vector,
-                     std::vector<K> &right_keypoint_vector);
+  void
+  get3DPositionInLeftCamera(std::vector<std::pair<uint16_t, uint16_t>> &matched,
+                            std::vector<K> &left_keypoint_vector,
+                            std::vector<K> &right_keypoint_vector);
   void registerConfig(ConfigPtr config);
 
 private:
