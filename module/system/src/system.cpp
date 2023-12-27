@@ -8,7 +8,7 @@ System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
   loadYamlConfig();
   extractor_ = std::move(extractor);
   matcher_ = std::move(matcher);
-  database_ = std::make_unique<dw_slam::database::Database>();
+  database_ = std::make_unique<dw_slam::database::Database<Keypoint>>();
 
   matcher_->registerConfig(config_);
   std::cout << "SLAM SYSTEM Constructor" << std::endl;
