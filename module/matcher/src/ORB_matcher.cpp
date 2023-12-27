@@ -19,11 +19,18 @@ void ORBMatcher::matchFeature_(
 
   for (uint16_t left_i = 0; left_i < left_keypoint_size; ++left_i) {
     int32_t best_distance = 10000000;
-    uint16_t best_index = -1;
+    int32_t best_index = -1;
     for (uint16_t right_i = 0; right_i < right_keypoint_size; ++right_i) {
       if (map.find(right_i) != map.end()) {
         continue;
       }
+      auto left_point = left_keypoint_vector[left_i].getXY();
+      auto right_point = right_keypoint_vector[right_i].getXY();
+
+      if (left_point.x <= right_point.x) {
+        continue;
+      }
+
       auto left_descriptor = left_keypoint_vector[left_i].descriptor;
       auto right_descriptor = right_keypoint_vector[right_i].descriptor;
       auto distance = getDescriptorDistance(left_descriptor, right_descriptor);
@@ -33,8 +40,10 @@ void ORBMatcher::matchFeature_(
         best_index = right_i;
       }
     }
-    map[best_index] = true;
-    match_keypoint_vector.emplace_back(left_i, best_index);
+    if (best_index != -1) {
+      map[best_index] = true;
+      match_keypoint_vector.emplace_back(left_i, best_index);
+    }
   }
 }
 
