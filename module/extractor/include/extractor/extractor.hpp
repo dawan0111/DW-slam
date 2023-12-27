@@ -5,6 +5,9 @@
 #include <opencv2/opencv.hpp>
 
 namespace dw_slam::extractor {
+/**
+ * TODO: move Point, ORBKeypoint -> type/frame_point.cpp
+ */
 struct Point {
   double x;
   double y;
