@@ -13,8 +13,10 @@ struct ORBKeypoint {
   cv::KeyPoint point;
   cv::Mat descriptor;
 
-  ORBKeypoint(const cv::KeyPoint &point, cv::Mat &descriptor)
+  ORBKeypoint(){};
+  ORBKeypoint(const cv::KeyPoint &point, const cv::Mat &descriptor)
       : point(point), descriptor(descriptor){};
+
   Point getXY() { return Point{point.pt.x, point.pt.y}; };
 };
 template <typename K> class Extractor {
