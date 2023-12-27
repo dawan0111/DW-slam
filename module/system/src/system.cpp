@@ -4,9 +4,17 @@ namespace dw_slam::system {
 template <typename Keypoint>
 System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
     : debug_(debug) {
+
+  loadYamlConfig();
   extractor_ = std::move(extractor);
   matcher_ = std::move(matcher);
+  database_ = std::make_unique<dw_slam::database::Database>();
 
+  matcher_->registerConfig(config_);
+  std::cout << "SLAM SYSTEM Constructor" << std::endl;
+}
+
+template <typename Keypoint> void System<Keypoint>::loadYamlConfig() {
   /**
    * TODO: load yaml file
    */
@@ -44,8 +52,6 @@ System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
   config_->right_camera_ = std::move(right_camera);
   config_->baseline_ = 0.537;
   config_->baseline_pixel_ = 386.1448;
-  matcher_->registerConfig(config_);
-  std::cout << "SLAM SYSTEM Constructor" << std::endl;
 }
 
 template <typename Keypoint>

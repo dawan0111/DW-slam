@@ -11,7 +11,7 @@ FramePoint<K>::FramePoint(K &left_image_point, K &right_image_point,
 }
 
 template <typename K>
-void FramePoint<K>::updateFramePose_(const Eigen::Matrix4d &transform) {
+void FramePoint<K>::updateFramePose(const Eigen::Matrix4d &transform) {
   (void)transform;
 }
 

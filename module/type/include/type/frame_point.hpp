@@ -8,7 +8,7 @@ template <typename K> class FramePoint {
 public:
   FramePoint(K &left_image_point, K &right_image_point,
              Eigen::Vector3d &point_c);
-  void updateFramePose_(const Eigen::Matrix4d &transform);
+  void updateFramePose(const Eigen::Matrix4d &transform);
   const K &getLeftImagePoint() { return left_image_point_; };
   const K &getRightImagePoint() { return right_image_point_; };
   const Eigen::Vector3d &getPointInCamera() { return point_c_; };
