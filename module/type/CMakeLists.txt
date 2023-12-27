@@ -29,6 +29,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/find_eigen.cmake)
 
 set(${LIBRARY_NAME}_SOURCE_FILES
   src/camera.cpp
+  src/frame_point.cpp
 )
 add_library(${LIBRARY_NAME}
   ${${LIBRARY_NAME}_SOURCE_FILES}
@@ -39,6 +40,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
 )
 target_link_libraries(${LIBRARY_NAME} PRIVATE
     ${EIGEN3_LIBS}
+    EXTRACTOR
 )
 
 target_compile_options(${LIBRARY_NAME} PRIVATE
