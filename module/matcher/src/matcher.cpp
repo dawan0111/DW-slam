@@ -39,14 +39,12 @@ void Matcher<Keypoint>::get3DPositionInLeftCamera(
     auto left_xy = left_keypoint.getXY();
     auto right_xy = right_keypoint.getXY();
 
-    position[2] = baseline_pixel / (right_xy.x - left_xy.x);
+    position[2] = baseline_pixel / (left_xy.x - right_xy.x);
     position[0] = 1 / left_intrinsic_(0, 0) *
                   (left_xy.x - left_intrinsic_(0, 2)) * position[2];
     position[1] = 1 / left_intrinsic_(1, 1) *
                   ((left_xy.y + right_xy.y) / 2.0 - left_intrinsic_(1, 2)) *
                   position[2];
-    std::cout << "x: " << position[0] << ", y: " << position[1]
-              << ", z: " << position[2] << std::endl;
   }
 }
 
