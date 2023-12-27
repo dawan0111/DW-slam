@@ -21,7 +21,27 @@ set(${PACKAGE_NAME}_THIRDPARTY_PATH "${${PACKAGE_NAME}_PATH}/thirdparty")
 add_subdirectory(${${PACKAGE_NAME}_MODULE_PATH})
 add_subdirectory(${${PACKAGE_NAME}_THIRDPARTY_PATH})
 
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+
+
 add_executable(KITTI src/kitti.cpp)
+
+ament_target_dependencies(KITTI
+  rclcpp
+  sensor_msgs
+  geometry_msgs
+  nav_msgs
+)
+
+target_link_libraries(KITTI
+  SYSTEM
+  EXTRACTOR
+  MATCHER
+  ${OpenCV_LIBS}
+)
 
 include(${CMAKE_SOURCE_DIR}/cmake/find_opencv.cmake)
 
@@ -29,9 +49,6 @@ target_include_directories(KITTI PUBLIC
   ${OpenCV_INCLUDE_DIRS}
 )
 
-target_link_libraries(KITTI PRIVATE
-  SYSTEM
-  EXTRACTOR
-  MATCHER
-  ${OpenCV_LIBS}
-)
+install(TARGETS KITTI
+  DESTINATION lib/${PROJECT_NAME})
+  
