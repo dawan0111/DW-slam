@@ -2,6 +2,7 @@
 #define SLAM__SLAM_SYSTEM_HPP_
 
 #include "config/config.hpp"
+#include "database/database.hpp"
 #include "extractor/extractor.hpp"
 #include "matcher/matcher.hpp"
 #include "opencv2/opencv.hpp"
