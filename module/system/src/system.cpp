@@ -6,6 +6,7 @@ System<Keypoint>::System(Extractor extractor, Matcher matcher, bool debug)
     : debug_(debug) {
 
   loadYamlConfig();
+  cur_frame_id_ = 0;
   extractor_ = std::move(extractor);
   matcher_ = std::move(matcher);
   database_ = std::make_unique<dw_slam::database::Database<Keypoint>>();
@@ -65,8 +66,13 @@ void System<Keypoint>::processNextFrame(cv::Mat &&left_image,
   std::vector<std::pair<uint16_t, uint16_t>> matched_keypoint_vector =
       matcher_->matchFeature(left_keypoint_vector, right_keypoint_vector);
 
-  matcher_->get3DPositionInLeftCamera(
-      matched_keypoint_vector, left_keypoint_vector, right_keypoint_vector);
+  std::vector<dw_slam::type::FramePoint<Keypoint>> frame_point_vector =
+      matcher_->get3DPositionInLeftCamera(
+          matched_keypoint_vector, left_keypoint_vector, right_keypoint_vector);
+
+  database_->addFrame(cur_frame_id_);
+  database_->setFramePoint(cur_frame_id_, std::move(frame_point_vector));
+
   if (debug_) {
     cv::Mat merge_image;
     auto left_image_col = left_image.cols;
@@ -91,6 +97,7 @@ void System<Keypoint>::processNextFrame(cv::Mat &&left_image,
     cv::imshow("original_image", merge_image);
     cv::waitKey(1);
   }
+  ++cur_frame_id_;
 }
 
 template class System<dw_slam::extractor::ORBKeypoint>;

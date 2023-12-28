@@ -14,8 +14,10 @@ public:
   using Frame = dw_slam::type::Frame;
   Database();
   void updateFramePose();
-  void addFrame();
-  void addFrameFramePoint();
+  void addFrame(uint32_t frame_id);
+  void addFramePoint();
+  void setFramePoint(uint32_t frame_id,
+                     std::vector<FramePoint> &&frame_point_vector);
 
 private:
   std::unordered_map<uint32_t, std::vector<FramePoint>> frame_point_map_;

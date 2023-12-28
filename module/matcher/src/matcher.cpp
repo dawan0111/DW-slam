@@ -21,13 +21,15 @@ void Matcher<Keypoint>::registerConfig(ConfigPtr config) {
 }
 
 template <typename Keypoint>
-void Matcher<Keypoint>::get3DPositionInLeftCamera(
+std::vector<dw_slam::type::FramePoint<Keypoint>>
+Matcher<Keypoint>::get3DPositionInLeftCamera(
     std::vector<std::pair<uint16_t, uint16_t>> &matched,
     std::vector<Keypoint> &left_keypoint_vector,
     std::vector<Keypoint> &right_keypoint_vector) {
+  std::vector<dw_slam::type::FramePoint<Keypoint>> frame_point_vector;
   if (!config_) {
     std::cout << "config is null" << std::endl;
-    return;
+    return frame_point_vector;
   }
   double baseline_pixel = config_->baseline_pixel_;
   auto left_intrinsic_ = config_->left_camera_->getIntrinsicMatrix();
@@ -45,7 +47,10 @@ void Matcher<Keypoint>::get3DPositionInLeftCamera(
     position[1] = 1 / left_intrinsic_(1, 1) *
                   ((left_xy.y + right_xy.y) / 2.0 - left_intrinsic_(1, 2)) *
                   position[2];
+    frame_point_vector.emplace_back(left_keypoint, right_keypoint, position);
   }
+
+  return frame_point_vector;
 }
 
 template class Matcher<dw_slam::extractor::ORBKeypoint>;

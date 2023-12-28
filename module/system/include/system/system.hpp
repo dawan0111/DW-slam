@@ -29,6 +29,7 @@ private:
   Matcher matcher_;
   Config config_;
   Database database_;
+  uint32_t cur_frame_id_;
 };
 } // namespace dw_slam::system
 #endif // SLAM_SYSTEM__SLAM_SYSTEM_HPP_
