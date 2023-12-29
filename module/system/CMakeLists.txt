@@ -47,6 +47,7 @@ target_link_libraries(${LIBRARY_NAME} PUBLIC
     CONFIG
     TYPE_LIB
     DATABASE
+    TRACKING
 )
 
 target_compile_options(${LIBRARY_NAME} PRIVATE
