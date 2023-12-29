@@ -64,7 +64,7 @@ void System<Keypoint>::processNextFrame(cv::Mat &&left_image,
   std::vector<Keypoint> right_keypoint_vector =
       extractor_->extractFeature(right_image, 0.0);
   std::vector<std::pair<uint16_t, uint16_t>> matched_keypoint_vector =
-      matcher_->matchFeature(left_keypoint_vector, right_keypoint_vector);
+      matcher_->matchStereoFeature(left_keypoint_vector, right_keypoint_vector);
 
   std::vector<dw_slam::type::FramePoint<Keypoint>> frame_point_vector =
       matcher_->get3DPositionInLeftCamera(

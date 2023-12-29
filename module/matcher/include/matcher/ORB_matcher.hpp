@@ -16,12 +16,10 @@ public:
   ORBMatcher();
 
 private:
-  void matchFeature_(std::vector<Keypoint> &left_keypoint_vector,
-                     std::vector<Keypoint> &right_keypoint_vector,
-                     std::vector<std::pair<uint16_t, uint16_t>>
-                         &match_keypoint_vector) override;
-  int32_t getDescriptorDistance(const cv::Mat &descriptor1,
-                                const cv::Mat &descriptor2);
+  double matchFeature_(const Keypoint &keypoint1,
+                       const Keypoint &keypoint2) override;
+  int32_t getDescriptorDistance_(const cv::Mat &descriptor1,
+                                 const cv::Mat &descriptor2);
 };
 } // namespace dw_slam::matcher
 #endif // SLAM__ORB_MATCHER_HPP_

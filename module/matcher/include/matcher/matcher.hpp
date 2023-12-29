@@ -15,19 +15,22 @@ public:
   using FramePoint = dw_slam::type::FramePoint<K>;
   Matcher();
   std::vector<std::pair<uint16_t, uint16_t>>
-  matchFeature(std::vector<K> &left_keypoint_vector,
-               std::vector<K> &right_keypoint_vector);
+  matchStereoFeature(std::vector<K> &left_keypoint_vector,
+                     std::vector<K> &right_keypoint_vector);
+  std::vector<std::pair<uint16_t, uint16_t>>
+  matchFramePointFeature(std::vector<FramePoint> &previous_frame_point_vector,
+                         std::vector<FramePoint> &current_frame_point_vector);
   std::vector<FramePoint>
   get3DPositionInLeftCamera(std::vector<std::pair<uint16_t, uint16_t>> &matched,
                             std::vector<K> &left_keypoint_vector,
                             std::vector<K> &right_keypoint_vector);
+
   void registerConfig(ConfigPtr config);
 
 private:
   bool debug_;
   ConfigPtr config_;
-  virtual void matchFeature_(std::vector<K> &, std::vector<K> &,
-                             std::vector<std::pair<uint16_t, uint16_t>> &) = 0;
+  virtual double matchFeature_(const K &, const K &) = 0;
 };
 } // namespace dw_slam::matcher
 #endif // SLAM__MATCHER_HPP_
